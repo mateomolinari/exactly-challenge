@@ -1,3 +1,7 @@
 {
-  "name": "hardhat-project"
+  "name": "hardhat-project",
+  "dependencies": {
+    "hardhat": "^2.8.0",
+    "prb-math": "^2.4.1"
+  }
 }

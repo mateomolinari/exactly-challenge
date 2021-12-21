@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.0;
 
-import "./PRBMathUD60x18.sol";
+import "prb-math/contracts/PRBMathUD60x18.sol";
 contract ETHPool {
     using PRBMathUD60x18 for uint256;
 
