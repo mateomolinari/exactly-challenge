@@ -3,7 +3,7 @@ const { ethers } = require("hardhat");
 async function main() {
     const [deployer] = await ethers.getSigners();
 
-    console.log("Account balance: ", deployer.address);
+    console.log("Deployer address: ", deployer.address);
 
     const ETH_Pool = await ethers.getContractFactory("ETHPool");
     const contract = await ETH_Pool.deploy();
