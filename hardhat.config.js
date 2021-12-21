@@ -1,5 +1,7 @@
 require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-etherscan");
+require("@nomiclabs/hardhat-ethers")
+
 let secret = require("./secret.json");
 
 // This is a sample Hardhat task. To learn how to create your own go to
@@ -31,3 +33,12 @@ module.exports = {
   }
 };
 
+task(
+  "balance",
+  "Prints the current contract balance",
+  async (_, { ethers }) => {
+    await ethers.provider.getBalance("0xF65eD1165627BD4eB0fEFdfC5e9856D4b2d867d8").then((balance) => {
+      console.log("Current balance for contract: ", ethers.utils.formatEther(balance));
+    });
+  }
+);
