@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.0;
 
+import "./PRBMathUD60x18.sol";
 contract ETHPool {
+    using PRBMathUD60x18 for uint256;
 
     mapping(address => bool) public team_members;
     uint256 internal rewards;
@@ -57,12 +59,11 @@ contract ETHPool {
             added_to_pool += deposits[msg.sender][i].amount;
         }  
             
-        uint256 share_of_pool = (added_before_rewards * 100) / claimable_pool;
-        uint256 withdrawal_amount = added_to_pool + (rewards / 100) * share_of_pool;
+        uint256 share_of_pool = PRBMathUD60x18.div(PRBMathUD60x18.mul(added_before_rewards, 100), claimable_pool);
+        uint256 withdrawal_amount = added_to_pool + PRBMathUD60x18.mul(PRBMathUD60x18.div(rewards, 100), share_of_pool);
         (bool success, ) = msg.sender.call{value: withdrawal_amount}("");
         require(success, "Transfer failed.");
-
-        claimable_rewards -= (rewards / 100) * share_of_pool;
+        claimable_rewards -= PRBMathUD60x18.mul(PRBMathUD60x18.div(rewards, 100), share_of_pool);
         total_pool -= added_to_pool;
         delete deposits[msg.sender];
          
